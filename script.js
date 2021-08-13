@@ -33,9 +33,19 @@ function setDisplay(str) {
   display.textContent = str;
 }
 
+function keyPressed(e) {
+  const keyCode = e.keyCode;
+  const button = document.querySelector(`.kbd[data-keycode~="${keyCode}"]`);
+  if (button) {
+    button.click();
+    e.preventDefault();
+  }
+}
+
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button").forEach((button) => {
   button.addEventListener("click", buttonPressed);
+  document.addEventListener('keydown', keyPressed);
 });
 
 let activeButton;
@@ -110,10 +120,11 @@ function buttonPressed(e) {
       } else {
         if (secondValue.length > 1) {
           secondValue = secondValue.slice(0, -1);
+          setDisplay(secondValue);
         } else {
           secondValue = '';
+          setDisplay('0');
         }
-        setDisplay('0');
       }
     } else if (op == '.') {
       if (!secondValue.includes('.')) {
@@ -124,13 +135,17 @@ function buttonPressed(e) {
       clearData();
       setDisplay('0')
     } else if (op == "=") {
-      if (currentOperator == '/' && secondValue == '0') {
+      if (currentOperator == '/' && (secondValue == '0' || secondValue == '')) {
         clearData();
         setDisplay('LMAO');
       } else {
+        if (!secondValue) {
+          secondValue = '0';
+        }
+        secondValue = +secondValue;
         result = operate(currentOperator, Number.parseFloat(firstValue), Number.parseFloat(secondValue));
         clearData();
-        firstValue = +result.toFixed(6);
+        firstValue = +result.toFixed(13);
         setDisplay(firstValue);
       }
     } else {
