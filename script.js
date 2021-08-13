@@ -49,6 +49,11 @@ function clearData() {
   firstValue = "0";
   currentOperator = "";
   secondValue = "";
+  disableActiveButton();
+}
+
+function disableActiveButton() {
+  currentOperator = '';
   if (activeButton) {
     activeButton.classList.remove('active');
     delete activeButton;
@@ -83,6 +88,14 @@ function buttonPressed(e) {
           clearData();
           setDisplay("0");
           break;
+        case 'd':
+          if (firstValue.length > 1) {
+            firstValue = firstValue.slice(0, -1);
+          } else {
+            firstValue = '0';
+          }
+          setDisplay(firstValue);
+          break;
       }
     }
   } else {
@@ -90,6 +103,18 @@ function buttonPressed(e) {
       if (secondValue == '0') secondValue = op;
       else secondValue += op;
       setDisplay(secondValue);
+    } else if (op == 'd') {
+      if (secondValue == '') {
+        disableActiveButton()
+        setDisplay(firstValue);
+      } else {
+        if (secondValue.length > 1) {
+          secondValue = secondValue.slice(0, -1);
+        } else {
+          secondValue = '';
+        }
+        setDisplay('0');
+      }
     } else if (op == '.') {
       if (!secondValue.includes('.')) {
         secondValue += '.';
