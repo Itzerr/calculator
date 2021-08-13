@@ -90,9 +90,9 @@ header h1 {
 button {
   background-color: #bbb;
   box-shadow: 2px 2px black;
+  cursor: pointer;
 }
 
-button:hover {
+button:hover, button.active {
   background-color: #fff;
-  cursor: pointer;
 }

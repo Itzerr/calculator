@@ -18,26 +18,27 @@ function operate(op, a, b) {
   switch (op) {
     case "+":
       return add(a, b);
-      break;
     case "-":
       return subtract(a, b);
-      break;
     case "*":
       return multiply(a, b);
-      break;
     case "/":
       return divide(a, b);
-      break;
-
     default:
       return "ERROR";
-      break;
   }
 }
 
 function setDisplay(str) {
   display.textContent = str;
 }
+
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", buttonPressed);
+});
+
+let activeButton;
 
 let displayValue = "0";
 let firstValue = "0";
@@ -48,14 +49,18 @@ function clearData() {
   firstValue = "0";
   currentOperator = "";
   secondValue = "";
+  if (activeButton) {
+    activeButton.classList.remove('active');
+    delete activeButton;
+  }
 }
 
 function buttonPressed(e) {
   let op = e.target.dataset.op;
-  let opNum = Number.parseInt(op);
+  let opNum = Number.parseFloat(op);
   if (currentOperator === "") {
     if (!isNaN(opNum)) {
-      if (firstValue == 0) firstValue = op;
+      if (firstValue == '0') firstValue = op;
       else firstValue += op;
       setDisplay(firstValue);
     } else {
@@ -65,7 +70,14 @@ function buttonPressed(e) {
         case "*":
         case "/":
           currentOperator = op;
-          console.log(currentOperator);
+          activeButton = e.target;
+          activeButton.classList.add('active');
+          break;
+        case ".":
+          if (!firstValue.includes('.')) {
+            firstValue += '.';
+            setDisplay(firstValue);
+          }
           break;
         case "c":
           clearData();
@@ -75,9 +87,14 @@ function buttonPressed(e) {
     }
   } else {
     if (!isNaN(opNum)) {
-      if (secondValue == 0) secondValue = op;
+      if (secondValue == '0') secondValue = op;
       else secondValue += op;
       setDisplay(secondValue);
+    } else if (op == '.') {
+      if (!secondValue.includes('.')) {
+        secondValue += '.';
+        setDisplay(secondValue);
+      }
     } else if (op == "c") {
       clearData();
       setDisplay('0')
@@ -86,10 +103,9 @@ function buttonPressed(e) {
         clearData();
         setDisplay('LMAO');
       } else {
-        result = Math.round(operate(currentOperator, Number.parseInt(firstValue),
-              Number.parseInt(secondValue)));
+        result = operate(currentOperator, Number.parseFloat(firstValue), Number.parseFloat(secondValue));
         clearData();
-        firstValue = result;
+        firstValue = +result.toFixed(6);
         setDisplay(firstValue);
       }
     } else {
@@ -97,11 +113,6 @@ function buttonPressed(e) {
     }
   }
 }
-
-const display = document.querySelector(".display");
-const buttons = document.querySelectorAll("button").forEach((button) => {
-  button.addEventListener("click", buttonPressed);
-});
 
 clearData();
 setDisplay(0);
