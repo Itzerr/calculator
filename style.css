@@ -91,3 +91,8 @@ button {
   background-color: #bbb;
   box-shadow: 2px 2px black;
 }
+
+button:hover {
+  background-color: #fff;
+  cursor: pointer;
+}
