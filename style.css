@@ -1,0 +1,93 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  align-items: center;
+  background-color: #666;
+  color: #222;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif,
+    Courier, monospace;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: #444;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 8px;
+  box-shadow: 6px 6px 8px 4px #222;
+}
+
+header {
+  
+  font-size: 36px;
+  font-weight: bolder;
+}
+
+header h1 {
+  margin: 16px;
+  color: #ddd;
+  text-shadow: 4px 4px 4px black;
+}
+
+.display {
+  background-color: #bbb;
+  border-radius: 8px;
+  font-size: 32px;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-shadow: -2px -2px #333;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.digit-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  grid-template-rows: repeat(4, min-content);
+  background-color: #555;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: -2px -2px #333;
+}
+
+.digit-buttons button {
+  border: 0px;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: bolder;
+  padding: 8px 12px;
+  margin: 6px;
+}
+
+.operator-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  grid-template-rows: repeat(3, min-content);
+  background-color: #555;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: -2px -2px #333;
+}
+
+.operator-buttons button {
+  border: 0px;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: bolder;
+  padding: 4px 12px;
+  margin: 6px;
+  height: 40px;
+  width: 40px;
+}
+
+button {
+  background-color: #bbb;
+  box-shadow: 2px 2px black;
+}
